@@ -35,6 +35,8 @@ jobs:
         run: |
           # 洁癖把 只喜欢双数版本号
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          ls
+          cat ~/.npmrc
           npm version patch
           npm version patch
           VERSION=$(node -p "require('./package.json').version")
