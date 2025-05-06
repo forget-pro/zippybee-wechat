@@ -58,9 +58,12 @@ jobs:
           # 使用 awk 提取最新版本的 changelog
           changelog=$(awk '/^## \[/ {if (f==1) exit} f==1 {print} /^## \[/ {f=1}' CHANGELOG.md)
           # 输出提取的 changelog 内容
-          echo "Changelog: $changelog"
+          echo "Changelog:"
+          echo "$changelog"
           # 使用 GITHUB_OUTPUT 设置输出
-          echo "changelog=$changelog" >> $GITHUB_OUTPUT
+          echo "changelog<<EOF" >> $GITHUB_ENV
+          echo "$changelog" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -69,6 +72,6 @@ jobs:
           name: v${{ env.PACKAGE_VERSION }}
           files: |
             dist/
-          release_notes: ${{ steps.changelog.outputs.changelog }}
+          release_notes: ${{ env.changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
