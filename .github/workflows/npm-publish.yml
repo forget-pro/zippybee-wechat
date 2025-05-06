@@ -37,8 +37,8 @@ jobs:
            echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
            ls -a ~  # 确认 .npmrc 是否正确生成
            cat ~/.npmrc  # 查看文件内容
-           npm version patch
-           npm version patch
+           #npm version patch
+           #npm version patch
            VERSION=$(node -p "require('./package.json').version")
            echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
           # 执行发布
@@ -48,8 +48,7 @@ jobs:
 
       - name: Tag and commit version update
         run: |
-          git push
-          git tag -d "v${{ env.PACKAGE_VERSION }}"
+          #git push
           git tag "v${{ env.PACKAGE_VERSION }}"
           git push origin "v${{ env.PACKAGE_VERSION }}"
 
