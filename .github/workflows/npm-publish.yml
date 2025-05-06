@@ -26,23 +26,19 @@ jobs:
       - name: Build package
         run: npm run build
 
-      - name: Set Git user
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
       - name: Publish to NPM
         run: |
           # 洁癖把 只喜欢双数版本号
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           ls
           cat ~/.npmrc
+          echo "NPM_TOKEN: ${{ secrets.NPM_TOKEN }}"
           npm version patch
           npm version patch
           VERSION=$(node -p "require('./package.json').version")
           echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
           npm login
-          npm publish --access public
+          npm publish --access public --no-git-tag-version
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
