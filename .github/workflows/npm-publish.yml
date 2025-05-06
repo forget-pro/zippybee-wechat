@@ -55,14 +55,13 @@ jobs:
       - name: Read the latest changelog section
         id: changelog
         run: |
-          # 打印 CHANGELOG.md 文件内容进行调试
-          cat CHANGELOG.md
           # 使用 awk 提取最新版本的 changelog
-          changelog=$(awk '/^## \[/ {f=1} f && /^###/ {print} /^## \[/ && f {f=0}' CHANGELOG.md)
+          changelog=$(awk '/^## \[/ {if (f==1) exit} f==1 {print} /^## \[/ {f=1}' CHANGELOG.md)
           # 输出提取的 changelog 内容
-          echo "Changelog content: $changelog"
-          # 设置输出变量
-          echo "::set-output name=changelog::$changelog"
+          echo "Changelog: $changelog"
+          # 使用 GITHUB_OUTPUT 设置输出
+          echo "changelog=$changelog" >> $GITHUB_OUTPUT
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
@@ -70,6 +69,6 @@ jobs:
           name: v${{ env.PACKAGE_VERSION }}
           files: |
             dist/
-          body: ${{ steps.changelog.outputs.changelog }}
+          release_notes: ${{ steps.changelog.outputs.changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
