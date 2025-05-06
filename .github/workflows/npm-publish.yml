@@ -72,6 +72,6 @@ jobs:
           name: v${{ env.PACKAGE_VERSION }}
           files: |
             dist/
-          release_notes: ${{ env.changelog }}
+          body: ${{ env.changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
