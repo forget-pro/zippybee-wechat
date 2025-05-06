@@ -49,6 +49,7 @@ jobs:
       - name: Tag and commit version update
         run: |
           git push
+          git tag -d "v${{ env.PACKAGE_VERSION }}"
           git tag "v${{ env.PACKAGE_VERSION }}"
           git push origin "v${{ env.PACKAGE_VERSION }}"
 
