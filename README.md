@@ -2,9 +2,7 @@
 
 一个轻量级的微信公众号和支付开发工具包，提供了丰富的 API 集成功能。
 
-[![NPM Version](https://img.shields.io/npm/v/@zippybee/wechat-kit.svg)](https://www.npmjs.com/package/@zippybee/wechat-kit)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
-[![Node.js Version](https://img.shields.io/node/v/@zippybee/wechat-kit.svg)](https://nodejs.org)
+[![NPM Version](https://img.shields.io/npm/v/@zippybee/wechat-kit.svg?logo=npm&logoColor=ea2039)](https://www.npmjs.com/package/@zippybee/wechat-kit) ![GitHub release](https://img.shields.io/github/v/release/dr-forget/zippy-wechat-kit.svg?logo=github) ![npm downloads](https://img.shields.io/npm/dt/@zippybee/wechat-kit?logo=npm&logoColor=ea2039) [![Node.js Version](https://img.shields.io/badge/Node.js-%3E%3D%2020.x-brightgreen?logo=node.js)](https://nodejs.org) ![TypeScript Version](https://img.shields.io/badge/TypeScript-%3E%3D%204.0-blue?logo=typescript) ![Rollup](https://img.shields.io/badge/Rollup-%3E%3D%204.x-blue?logo=webpack&logoColor=ea2039) ![Wechat](https://img.shields.io/badge/Wechat-Supported-brightgreen?logo=wechat) ![GitHub Actions](https://img.shields.io/github/actions/workflow/status/dr-forget/zippy-wechat-kit/npm-publish.yml?branch=main) [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
 ## 目录
 
