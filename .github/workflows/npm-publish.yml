@@ -48,8 +48,8 @@ jobs:
 
       - name: Tag and commit version update
         run: |
+          git status  # 检查是否有文件变动
           git add .
-          git status
           git commit -m "chore: update version to ${{ env.PACKAGE_VERSION }}"
           git tag "v${{ env.PACKAGE_VERSION }}"
           git push
