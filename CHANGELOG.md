@@ -1,21 +1,21 @@
 ## [1.0.2] - 2025-05-06
 
-### Added
+### 新增功能
 
-- Initial public release
-- WeChat Official Account API support
-  - Access token management
-  - Customer service messaging
-  - Material management (temporary and permanent)
-  - Menu management
-  - Message encryption/decryption
-- WeChat Pay V3 API integration
-  - JSAPI/Mini Program payment
-  - App payment
-  - H5 payment
-  - Native payment (QR code)
-  - Order query and management
-  - Refund processing
-  - Combined orders support
-  - Bill downloading
-- HTTP module with custom request handling
+- 首次公开发布
+- 微信公众号 API 支持
+  - 访问令牌管理
+  - 客服消息
+  - 素材管理（临时和永久）
+  - 菜单管理
+  - 消息加密/解密
+- 微信支付 V3 API 集成
+  - JSAPI/小程序支付
+  - App 支付
+  - H5 支付
+  - 原生支付（二维码）
+  - 订单查询和管理
+  - 退款处理
+  - 合并订单支持
+  - 账单下载
+- 持续更新中....
