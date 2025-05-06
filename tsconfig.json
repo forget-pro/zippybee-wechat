@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "esnext",
+    "lib": ["es2018", "dom"],
+    "declaration": true,
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "types": ["node"],
+    "rootDir": "src",
+    "baseUrl": "src",
+    "paths": {
+      "@zippybee/wechat-kit": ["index.ts"],
+      "@zippybee/wechat-kit/*": ["*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+  "exclude": ["node_modules", "dist", "test"]
+}

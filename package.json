@@ -1,0 +1,54 @@
+{
+  "name": "@zippybee/wechat-kit",
+  "version": "1.0.0",
+  "description": "Zippy WeChat utilities",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "cross-env BUILD_ENV=production rollup -c",
+    "dev": "cross-env BUILD_ENV=development rollup -c -w",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "wechat",
+    "utility"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/concat-stream": "^2.0.3",
+    "@types/form-data": "^2.2.1",
+    "@types/mime-types": "^2.1.4",
+    "@types/node": "^22.15.3",
+    "cross-env": "^7.0.3",
+    "fast-glob": "^3.3.3",
+    "rollup": "^4.40.1",
+    "rollup-plugin-cleandir": "^3.0.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.3"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "concat-stream": "^2.0.0",
+    "fast-xml-parser": "^5.2.2",
+    "form-data": "^4.0.2",
+    "mime-types": "^3.0.1"
+  }
+}
