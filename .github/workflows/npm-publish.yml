@@ -49,8 +49,8 @@ jobs:
       - name: Tag and commit version update
         run: |
           #git push
-          git tag "v${{ env.PACKAGE_VERSION }}"
-          git push origin "v${{ env.PACKAGE_VERSION }}"
+          #git tag "v${{ env.PACKAGE_VERSION }}"
+          #git push origin "v${{ env.PACKAGE_VERSION }}"
 
       - name: Read the latest changelog section
         id: changelog
@@ -61,8 +61,10 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: v${{ env.package_version }}
+          name: v${{ env.package_version }}
           files: |
             dist/
-          release_notes: ${{ steps.changelog.outputs.changelog }}
+          body: ${{ steps.changelog.outputs.changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
