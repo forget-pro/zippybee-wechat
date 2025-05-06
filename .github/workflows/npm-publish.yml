@@ -33,16 +33,16 @@ jobs:
 
       - name: Publish to NPM
         run: |
-          # 洁癖把 只喜欢双数版本号
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          ls -a ~
-          cat ~/.npmrc
-          npm version patch
-          npm version patch
-          VERSION=$(node -p "require('./package.json').version")
-          echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
-          npm login
-          npm publish --access public --no-git-tag-version --token ${{ secrets.NPM_TOKEN }}
+          # 将 NPM Token 写入 .npmrc 文件
+           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+           ls -a ~  # 确认 .npmrc 是否正确生成
+           cat ~/.npmrc  # 查看文件内容
+           npm version patch
+           npm version patch
+           VERSION=$(node -p "require('./package.json').version")
+           echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
+          # 执行发布
+          npm publish --access public --no-git-tag-version
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
