@@ -29,8 +29,8 @@ jobs:
       - name: Publish to NPM
         run: |
           # 洁癖把 只喜欢双数版本号
-          npm run version:patch
-          npm run version:patch
+          npm version patch
+          npm version patch
           VERSION=$(node -p "require('./package.json').version")
           echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
           npm publish --access public
