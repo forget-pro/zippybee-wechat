@@ -2,7 +2,40 @@
 
 一个轻量级的微信公众号和支付开发工具包，提供了丰富的 API 集成功能。
 
-[![NPM Version](https://img.shields.io/npm/v/@zippybee/wechat-kit.svg?logo=npm&logoColor=ea2039)](https://www.npmjs.com/package/@zippybee/wechat-kit) ![GitHub release](https://img.shields.io/github/v/release/dr-forget/zippy-wechat-kit.svg?logo=github) ![npm downloads](https://img.shields.io/npm/dt/@zippybee/wechat-kit?logo=npm&logoColor=ea2039) [![Node.js Version](https://img.shields.io/badge/Node.js-%3E%3D%2020.x-brightgreen?logo=node.js)](https://nodejs.org) ![TypeScript Version](https://img.shields.io/badge/TypeScript-%3E%3D%204.0-blue?logo=typescript) ![Rollup](https://img.shields.io/badge/Rollup-%3E%3D%204.x-blue?logo=webpack&logoColor=ea2039) ![Wechat](https://img.shields.io/badge/Wechat-Supported-brightgreen?logo=wechat) ![GitHub Actions](https://img.shields.io/github/actions/workflow/status/dr-forget/zippy-wechat-kit/npm-publish.yml?branch=main) [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+<div>
+  <!-- NPM Version Badge with logo -->
+  <a href="https://www.npmjs.com/package/@zippybee/wechat-kit">
+    <img src="https://img.shields.io/npm/v/@zippybee/wechat-kit.svg?logo=npm&logoColor=ea2039" alt="NPM Version" />
+  </a>
+  <!-- GitHub Release Badge with logo -->
+  <img src="https://img.shields.io/github/v/release/dr-forget/zippy-wechat-kit.svg?logo=github" alt="GitHub release" />
+  <!-- NPM Downloads Badge with logo -->
+  <img src="https://img.shields.io/npm/dt/@zippybee/wechat-kit?logo=npm&logoColor=ea2039" alt="npm downloads" />
+  <!-- Node.js Version Badge with logo -->
+  <a href="https://nodejs.org">
+    <img src="https://img.shields.io/badge/Node.js-%3E%3D%2020.x-brightgreen?logo=node.js" alt="Node.js Version" />
+  </a>
+  <!-- TypeScript Version Badge with logo -->
+  <img src="https://img.shields.io/badge/TypeScript-%3E%3D%204.0-blue?logo=typescript" alt="TypeScript Version" />
+  <!-- Rollup Badge with logo -->
+  <img src="https://img.shields.io/badge/Rollup-%3E%3D%204.x-blue?logo=webpack&logoColor=ea2039" alt="Rollup" />
+  <!-- Wechat Badge with logo -->
+  <img src="https://img.shields.io/badge/Wechat-Supported-brightgreen?logo=wechat" alt="Wechat" />
+  <!-- GitHub Actions Badge with correct workflow -->
+  <img src="https://img.shields.io/github/actions/workflow/status/dr-forget/zippy-wechat-kit/npm-publish.yml?branch=main&logo=github-actions" alt="GitHub Actions" />
+  <!-- Repository Size Badge -->
+  <a href="https://github.com/dr-forget/zippy-wechat-kit">
+    <img src="https://img.shields.io/github/repo-size/dr-forget/zippy-wechat-kit?logo=github" alt="Repo Size" />
+  </a>
+  <!-- Last Commit Badge -->
+  <a href="https://github.com/dr-forget/zippy-wechat-kit/commits">
+    <img src="https://img.shields.io/github/last-commit/dr-forget/zippy-wechat-kit?logo=github" alt="Last Commit" />
+  </a>
+  <!-- License Badge with logo -->
+  <a href="https://opensource.org/licenses/ISC">
+    <img src="https://img.shields.io/badge/License-ISC-blue.svg?logo=open-source-initiative" alt="License: ISC" />
+  </a>
+</div>
 
 ## 目录
 
