@@ -35,22 +35,21 @@ jobs:
         run: |
           # 将 NPM Token 写入 .npmrc 文件
            echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-           ls -a ~  # 确认 .npmrc 是否正确生成
-           cat ~/.npmrc  # 查看文件内容
-           npm version patch
-           npm version patch
+          # npm version patch --no-git-tag-version
+          # npm version patch --no-git-tag-version
            VERSION=$(node -p "require('./package.json').version")
            echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
           # 执行发布
-           npm publish --access public --no-git-tag-version
+          npm whoami
+          # npm publish --access public --no-git-tag-version
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Tag and commit version update
         run: |
-          git push
-          git tag "v${{ env.PACKAGE_VERSION }}"
-          git push origin "v${{ env.PACKAGE_VERSION }}"
+          #git push
+          #git tag "v${{ env.PACKAGE_VERSION }}"
+          #git push origin "v${{ env.PACKAGE_VERSION }}"
 
       - name: Read the latest changelog section
         id: changelog
