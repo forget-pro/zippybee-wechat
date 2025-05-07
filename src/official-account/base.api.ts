@@ -134,13 +134,13 @@ export const getUserInfo = async <T>(access_token: string, openid: string): Prom
  * @param encrypt 微信加密字符串 xml 中 Encrypt 字段
  * @returns
  */
-export const verifyMessage = async <T>(token: string, timestamp: string, nonce: string, encrypt?: string): Promise<T> => {
+export const verifyMessage = (token: string, timestamp: string, nonce: string, encrypt?: string): string => {
   const signParams = [token, timestamp, nonce];
   if (encrypt) {
     signParams.push(encrypt);
   }
   const str = signParams.sort().join('');
-  return crypto.createHash('sha1').update(str).digest('hex') as unknown as T;
+  return crypto.createHash('sha1').update(str).digest('hex');
 };
 
 /**
@@ -151,7 +151,7 @@ export const verifyMessage = async <T>(token: string, timestamp: string, nonce: 
  * @param encrypt 微信加密字符串 xml 中 Encrypt 字段
  * @returns
  */
-export const decryptMessage = async <T>(aesKey: string, token: string, encrypt: string): Promise<T> => {
+export const decryptMessage = <T>(aesKey: string, token: string, encrypt: string): T => {
   const aes_key = Buffer.from(aesKey + '=', 'base64');
   const aes_iv_key = aes_key.subarray(0, 16);
   const decipher = crypto.createDecipheriv('aes-256-cbc', aes_key, aes_iv_key).setAutoPadding(false);
@@ -169,7 +169,7 @@ export const decryptMessage = async <T>(aesKey: string, token: string, encrypt: 
  * @param aesKey 公众后台填写的aesKey
  * @param xml 需要加密的xml
  */
-export const encryptMessage = async <T>(appid: string, token: string, aesKey: string, xml: string): Promise<T> => {
+export const encryptMessage = (appid: string, token: string, aesKey: string, xml: string): string => {
   const aes_key = Buffer.from(aesKey + '=', 'base64');
 
   const aes_iv_key = aes_key.subarray(0, 16);
@@ -212,7 +212,7 @@ export const encryptMessage = async <T>(appid: string, token: string, aesKey: st
     MsgSignature: msg_signature,
     TimeStamp: timestamp.toString(),
     Nonce: nonce.toString(),
-  }) as unknown as T;
+  });
 };
 
 //   字符补位
