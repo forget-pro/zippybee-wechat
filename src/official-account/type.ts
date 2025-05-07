@@ -92,3 +92,25 @@ export interface MaterialUploadOptions {
   headers?: Record<string, string>;
   isPermanent?: boolean;
 }
+
+export interface QrcodeOptions {
+  expire_seconds?: number;
+  action_name: string;
+  action_info: {
+    scene: {
+      scene_id?: number;
+      scene_str?: string;
+    };
+  };
+}
+
+export interface SendSubscribeMessageOptions {
+  touser: string;
+  template_id: string;
+  page?: string;
+  data?: Record<string, any>;
+  miniprogram?: {
+    appid: string;
+    pagepath: string;
+  };
+}

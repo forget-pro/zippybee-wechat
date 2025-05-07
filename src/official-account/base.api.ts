@@ -2,6 +2,7 @@
 import { BaseHttp } from './base.http';
 import util from 'util';
 import crypto from 'crypto';
+import { QrcodeOptions } from './type';
 import { XMLBuilder, XMLParser } from 'fast-xml-parser';
 
 /**
@@ -243,4 +244,31 @@ export const objectToXml = (obj: any) => {
 export const xmlToObject = (xml: string) => {
   const parser = new XMLParser();
   return parser.parse(xml);
+};
+
+/**
+ * 生成带参数的二维码
+ * @param access_token 公众号的access_token
+ * @param {QrcodeOptions} options 参数
+ * @returns
+ */
+
+export const getQrcode = async (access_token: string, options: QrcodeOptions) => {
+  const url = util.format('/cgi-bin/qrcode/create?access_token=%s', access_token);
+  return await BaseHttp.post(url, options);
+};
+
+/**
+ * 短key托管
+ * @param access_token 公众号的access_token
+ * @param long_data 需要转换的长信息，不超过4KB
+ * @param {number} expire_seconds 过期秒数，最大值为2592000（即30天），默认为2592000
+ * @returns
+ */
+export const shortKey = async (access_token: string, long_data: string, expire_seconds?: number) => {
+  const url = util.format('/cgi-bin/shorten/gen?access_token=%s', access_token);
+  return await BaseHttp.post(url, {
+    long_data,
+    expire_seconds,
+  });
 };

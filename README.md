@@ -2,40 +2,7 @@
 
 一个轻量级的微信公众号和支付开发工具包，提供了丰富的 API 集成功能。
 
-<div>
-  <!-- NPM Version Badge with logo -->
-  <a href="https://www.npmjs.com/package/@zippybee/wechat-kit">
-    <img src="https://img.shields.io/npm/v/@zippybee/wechat-kit.svg?logo=npm&logoColor=ea2039" alt="NPM Version" />
-  </a>
-  <!-- GitHub Release Badge with logo -->
-  <img src="https://img.shields.io/github/v/release/dr-forget/zippy-wechat-kit.svg?logo=github" alt="GitHub release" />
-  <!-- NPM Downloads Badge with logo -->
-  <img src="https://img.shields.io/npm/dt/@zippybee/wechat-kit?logo=npm&logoColor=ea2039" alt="npm downloads" />
-  <!-- Node.js Version Badge with logo -->
-  <a href="https://nodejs.org">
-    <img src="https://img.shields.io/badge/Node.js-%3E%3D%2020.x-brightgreen?logo=node.js" alt="Node.js Version" />
-  </a>
-  <!-- TypeScript Version Badge with logo -->
-  <img src="https://img.shields.io/badge/TypeScript-%3E%3D%204.0-blue?logo=typescript" alt="TypeScript Version" />
-  <!-- Rollup Badge with logo -->
-  <img src="https://img.shields.io/badge/Rollup-%3E%3D%204.x-blue?logo=webpack&logoColor=ea2039" alt="Rollup" />
-  <!-- Wechat Badge with logo -->
-  <img src="https://img.shields.io/badge/Wechat-Supported-brightgreen?logo=wechat" alt="Wechat" />
-  <!-- GitHub Actions Badge with correct workflow -->
-  <img src="https://img.shields.io/github/actions/workflow/status/dr-forget/zippy-wechat-kit/npm-publish.yml?branch=main&logo=github-actions" alt="GitHub Actions" />
-  <!-- Repository Size Badge -->
-  <a href="https://github.com/dr-forget/zippy-wechat-kit">
-    <img src="https://img.shields.io/github/repo-size/dr-forget/zippy-wechat-kit?logo=github" alt="Repo Size" />
-  </a>
-  <!-- Last Commit Badge -->
-  <a href="https://github.com/dr-forget/zippy-wechat-kit/commits">
-    <img src="https://img.shields.io/github/last-commit/dr-forget/zippy-wechat-kit?logo=github" alt="Last Commit" />
-  </a>
-  <!-- License Badge with logo -->
-  <a href="https://opensource.org/licenses/ISC">
-    <img src="https://img.shields.io/badge/License-ISC-blue.svg?logo=open-source-initiative" alt="License: ISC" />
-  </a>
-</div>
+[![NPM Version](https://img.shields.io/npm/v/@zippybee/wechat-kit.svg?logo=npm&logoColor=ea2039)](https://www.npmjs.com/package/@zippybee/wechat-kit) [![GitHub Release](https://img.shields.io/github/v/release/dr-forget/zippy-wechat-kit.svg?logo=github)](https://github.com/dr-forget/zippy-wechat-kit/releases) [![NPM Downloads](https://img.shields.io/npm/dt/@zippybee/wechat-kit?logo=npm&logoColor=ea2039)](https://www.npmjs.com/package/@zippybee/wechat-kit) [![Node.js Version](https://img.shields.io/badge/Node.js-%3E%3D%2020.x-brightgreen?logo=node.js)](https://nodejs.org) [![TypeScript Version](https://img.shields.io/badge/TypeScript-%3E%3D%204.0-blue?logo=typescript)](https://www.typescriptlang.org/) [![Rollup](https://img.shields.io/badge/Rollup-%3E%3D%204.x-blue?logo=webpack&logoColor=ea2039)](https://rollupjs.org/) [![Wechat](https://img.shields.io/badge/Wechat-Supported-brightgreen?logo=wechat)](https://www.wechat.com/) [![GitHub Actions](https://img.shields.io/github/actions/workflow/status/dr-forget/zippy-wechat-kit/npm-publish.yml?branch=main&logo=github-actions)](https://github.com/dr-forget/zippy-wechat-kit/actions) [![Repo Size](https://img.shields.io/github/repo-size/dr-forget/zippy-wechat-kit?logo=github)](https://github.com/dr-forget/zippy-wechat-kit) [![Last Commit](https://img.shields.io/github/last-commit/dr-forget/zippy-wechat-kit?logo=github)](https://github.com/dr-forget/zippy-wechat-kit/commits) [![License](https://img.shields.io/badge/License-ISC-blue.svg?logo=open-source-initiative)](https://opensource.org/licenses/ISC) [![Contributors](https://img.shields.io/github/contributors/dr-forget/zippy-wechat-kit?logo=github)](https://github.com/dr-forget/zippy-wechat-kit/graphs/contributors)
 
 ## 目录
 
@@ -337,6 +304,8 @@ const postResult = await http.post('/path', { data: 'value' });
 - `getJsapiTicket(access_token)` - 获取 JS API Ticket
 - `getJsapiTicketSignature(jsapi_ticket, url)` - 生成 JS API 签名
 - `getUserInfo(access_token, openid)` - 获取用户信息
+- `getQrcode(access_token,QrcodeOptions)` - 新增生成带参数的二维码
+- `shortKey(access_token,long_data，expire_seconds)` - 短 key 托管
 
 ### 素材管理
 
@@ -359,6 +328,17 @@ const postResult = await http.post('/path', { data: 'value' });
 - `deleteCustomerServiceAccount(access_token, account)` - 删除客服账号
 - `sendCustomerMessage(access_token, message)` - 发送客服消息
 - `getAllCustomerServiceAccount(access_token)` - 获取所有客服账号
+
+### 模板消息
+
+- `addTemplate(access_token, tid,kidList,sceneDesc)` - 从公共模板库中选用模板，到私有模板库中
+- `delTemplate(access_token, priTmplId)` - 删除模板
+- `getCategory(access_token)` - 获取公众号类目
+- `getPubTemplateKeyWords(access_token,tid)` - 获取公共模板标题下的关键词列表
+- `getPubTemplateTitles(access_token,ids,start,limit)` - 获取类目下的公共模板
+- `getTemplateList(access_token)` - 获取私有模板列表
+- `sendSubscribeMessage(access_token,SendSubscribeMessageOptions)` - 发送订阅通知
+- `getInterceptedTemplateMessage(access_token,tmpl_msg_id,largest_id,limit)` - 查询拦截的模板消息
 
 ### 消息加解密
 
