@@ -9,7 +9,7 @@ import util from 'util';
  * @param menu 菜单按钮
  * @returns
  */
-export const createMenu = async (access_token: string, menu: OfficialAccountMenu) => {
+export const createMenu = async <T>(access_token: string, menu: OfficialAccountMenu): Promise<T> => {
   const url = util.format('/cgi-bin/menu/get/access_token=%s', access_token);
   const response = await BaseHttp.post(url, {
     menu,
@@ -18,7 +18,7 @@ export const createMenu = async (access_token: string, menu: OfficialAccountMenu
 };
 
 /**查询菜单按钮 */
-export const getMenu = async (access_token: string) => {
+export const getMenu = async <T>(access_token: string): Promise<T> => {
   const url = util.format('/cgi-bin/menu/get/access_token=%s', access_token);
   const response = await BaseHttp.get(url);
   return response;
@@ -29,7 +29,7 @@ export const getMenu = async (access_token: string) => {
  * @param access_token 公众号的access_token
  * @returns
  */
-export const deleteMenu = async (access_token: string) => {
+export const deleteMenu = async <T>(access_token: string): Promise<T> => {
   const url = util.format('/cgi-bin/menu/get/access_token=%s', access_token);
   const response = await BaseHttp.get(url);
   return response;

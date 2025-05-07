@@ -21,20 +21,20 @@ import util from 'util';
  * - 视频（video）：10MB，支持MP4格式
  * - 缩略图（thumb）：64KB，支持JPG格式
  */
-export const addMaterial = async ({ access_token, media, type, filename, description, fieldName, isPermanent, headers }: MaterialUploadOptions) => {
+export const addMaterial = async <T>({ access_token, media, type, filename, description, fieldName, isPermanent, headers }: MaterialUploadOptions): Promise<T> => {
   const filetype = typeof media === 'string' ? getSourceFileType(media) : type;
   const url = isPermanent ? util.format('/cgi-bin/material/add_material?access_token=%s&type=%s', access_token, filetype) : util.format('/cgi-bin/media/upload?access_token=%s&type=%s', access_token, filetype);
   // 如果media是字符串，按照路径处理
   if (typeof media === 'string') {
     // 判断media是否是http链接
     if (media.startsWith('http')) {
-      return await BaseHttp.getInstance().uploadMediaFromUrl(url, media, {
+      return (await BaseHttp.getInstance().uploadMediaFromUrl(url, media, {
         headers: headers,
-      });
+      })) as T;
     }
     // 使用本地文件路径上传
   }
-  return await BaseHttp.getInstance().uploadMedia(url, { media, filename, description, fieldName });
+  return (await BaseHttp.getInstance().uploadMedia(url, { media, filename, description, fieldName })) as T;
 };
 
 /**
@@ -43,7 +43,7 @@ export const addMaterial = async ({ access_token, media, type, filename, descrip
  * @param media_id 媒体id
  * @returns 返回结果包含media_id等信息
  */
-export const getTemporaryMaterial = async (access_token: string, media_id: string) => {
+export const getTemporaryMaterial = async <T>(access_token: string, media_id: string): Promise<T> => {
   const url = util.format('/cgi-bin/media/get?access_token=%s&media_id=%s', access_token, media_id);
   return await BaseHttp.get(url);
 };
@@ -54,7 +54,7 @@ export const getTemporaryMaterial = async (access_token: string, media_id: strin
  * @param media_id 媒体id
  * @returns 返回结果包含media_id等信息
  */
-export const getPermanentMaterial = async (access_token: string, media_id: string) => {
+export const getPermanentMaterial = async <T>(access_token: string, media_id: string): Promise<T> => {
   const url = util.format('/cgi-bin/material/get_material?access_token=%s&media_id=%s', access_token);
   return await BaseHttp.post(url, { media_id });
 };
@@ -65,7 +65,7 @@ export const getPermanentMaterial = async (access_token: string, media_id: strin
  * @param media_id 媒体id
  * @returns 返回结果包含media_id等信息
  */
-export const deletePermanentMaterial = async (access_token: string, media_id: string) => {
+export const deletePermanentMaterial = async <T>(access_token: string, media_id: string): Promise<T> => {
   const url = util.format('/cgi-bin/material/del_material?access_token=%s', access_token);
   return await BaseHttp.post(url, { media_id });
 };
@@ -75,7 +75,7 @@ export const deletePermanentMaterial = async (access_token: string, media_id: st
  * @param access_token 公众号的access_token
  * @returns 返回结果包含素材总数
  */
-export const getMaterialCount = async (access_token: string) => {
+export const getMaterialCount = async <T>(access_token: string): Promise<T> => {
   const url = util.format('/cgi-bin/material/get_materialcount?access_token=%s', access_token);
   return await BaseHttp.get(url);
 };
@@ -88,7 +88,7 @@ export const getMaterialCount = async (access_token: string) => {
  * @param count 返回素材的数量，取值在1到20之间
  * @returns 返回结果包含素材列表
  */
-export const getMaterialList = async (access_token: string, type: string, offset: number, count: number) => {
+export const getMaterialList = async <T>(access_token: string, type: string, offset: number, count: number): Promise<T> => {
   const url = util.format('/cgi-bin/material/batchget_material?access_token=%s', access_token);
   return await BaseHttp.post(url, { type, offset, count });
 };

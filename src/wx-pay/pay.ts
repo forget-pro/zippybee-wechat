@@ -88,7 +88,7 @@ export class WxPay {
    * @param options 统一下单参数 详见文档 https://pay.weixin.qq.com/doc/v3/merchant/4012791856
    * @returns
    */
-  public async unifiedOrder(options: UnifiedOrderParams) {
+  public async unifiedOrder<T>(options: UnifiedOrderParams): Promise<T> {
     const params = {
       appid: this.config.appid,
       mchid: this.config.mch_id,
@@ -96,7 +96,7 @@ export class WxPay {
     };
     const res = await this.http.post('/v3/pay/transactions/jsapi', params);
     if (res.prepay_id) {
-      return { ...this.signPrepayId(res.prepay_id), prepay_id: res.prepay_id, partnerId: this.config.mch_id };
+      return { ...this.signPrepayId(res.prepay_id), prepay_id: res.prepay_id, partnerId: this.config.mch_id } as unknown as T;
     } else {
       return Promise.reject(res);
     }
@@ -107,7 +107,7 @@ export class WxPay {
    * @param options 统一下单参数 详见文档 https://pay.weixin.qq.com/doc/v3/merchant/4012791856
    * @returns
    */
-  public async unifiedOrderApp(options: UnifiedOrderParams) {
+  public async unifiedOrderApp<T>(options: UnifiedOrderParams): Promise<T> {
     const params = {
       appid: this.config.appid,
       mchid: this.config.mch_id,
@@ -116,7 +116,7 @@ export class WxPay {
     const res = await this.http.post('/v3/pay/transactions/app', params);
     if (res.prepay_id) {
       const { package: packageStr, ...params } = this.signPrepayId(res.prepay_id);
-      return { ...params, prepay_id: res.prepay_id, partnerId: this.config.mch_id };
+      return { ...params, prepay_id: res.prepay_id, partnerId: this.config.mch_id } as unknown as T;
     } else {
       return Promise.reject(res);
     }
@@ -126,7 +126,7 @@ export class WxPay {
    * H5 统一下单
    * @param options 统一下单参数  https://pay.weixin.qq.com/doc/v3/merchant/4012791834
    */
-  public async unifiedOrderH5(options: UnifiedOrderParams) {
+  public async unifiedOrderH5<T>(options: UnifiedOrderParams): Promise<T> {
     const params = {
       appid: this.config.appid,
       mchid: this.config.mch_id,
@@ -134,7 +134,7 @@ export class WxPay {
     };
     const res = await this.http.post('/v3/pay/transactions/h5', params);
     if (res.h5_url) {
-      return res.h5_url;
+      return res.h5_url as unknown as T;
     } else {
       return Promise.reject(res);
     }
@@ -144,7 +144,7 @@ export class WxPay {
    * Native 支付 统一下单
    * @param options 统一下单参数  https://pay.weixin.qq.com/doc/v3/merchant/4012791877
    */
-  public async unifiedOrderNative(options: UnifiedOrderParams) {
+  public async unifiedOrderNative<T>(options: UnifiedOrderParams): Promise<T> {
     const params = {
       appid: this.config.appid,
       mchid: this.config.mch_id,
@@ -152,7 +152,7 @@ export class WxPay {
     };
     const res = await this.http.post('/v3/pay/transactions/native', params);
     if (res.code_url) {
-      return res.code_url;
+      return res.code_url as unknown as T;
     } else {
       return Promise.reject(res);
     }
@@ -163,7 +163,7 @@ export class WxPay {
    * @param transaction_id  微信支付订单号
    * @returns
    */
-  public async queryOrder(transaction_id: string) {
+  public async queryOrder<T>(transaction_id: string): Promise<T> {
     const url = util.format('/v3/pay/transactions/id/%s', transaction_id);
     return await this.http.get(url, { mchid: this.config.mch_id });
   }
@@ -172,7 +172,7 @@ export class WxPay {
    * @param out_trade_no 商户订单号
    * @returns
    */
-  public async queryOrderByOutTradeNo(out_trade_no: string) {
+  public async queryOrderByOutTradeNo<T>(out_trade_no: string): Promise<T> {
     const url = util.format('/v3/pay/transactions/out-trade-no/%s', out_trade_no);
     return await this.http.get(url, { mchid: this.config.mch_id });
   }
@@ -182,7 +182,7 @@ export class WxPay {
    * @param out_trade_no 商户订单号
    * @returns
    */
-  public async closeOrder(out_trade_no: string) {
+  public async closeOrder<T>(out_trade_no: string): Promise<T> {
     const url = util.format('/v3/pay/transactions/out-trade-no/%s/close', out_trade_no);
     return await this.http.post(url, { mchid: this.config.mch_id });
   }
@@ -192,7 +192,7 @@ export class WxPay {
    * @param options  退款参数详见文档 https://pay.weixin.qq.com/doc/v3/merchant/4012791862
    * @returns
    */
-  public async refund(options: RefundParams) {
+  public async refund<T>(options: RefundParams): Promise<T> {
     const url = util.format('/v3/refund/domestic/refunds');
     return await this.http.post(url, options);
   }
@@ -202,7 +202,7 @@ export class WxPay {
    * @param out_refund_no 商户退款单号
    * @returns
    */
-  public async queryRefund(out_refund_no: string) {
+  public async queryRefund<T>(out_refund_no: string): Promise<T> {
     const url = util.format('/v3/refund/domestic/refunds/%s', out_refund_no);
     return await this.http.get(url, { mchid: this.config.mch_id });
   }
@@ -212,7 +212,7 @@ export class WxPay {
    * @param options 异常退款参数 详见文档 https://pay.weixin.qq.com/doc/v3/merchant/4012791862
    * @returns
    */
-  public async exceptionRefund(options: ExceptionRefundParams) {
+  public async exceptionRefund<T>(options: ExceptionRefundParams): Promise<T> {
     const { refund_id, ...params } = options;
     const url = util.format('/v3/refund/domestic/refunds/%s/apply-abnormal-refund', refund_id);
     return await this.http.post(url, params);
@@ -225,7 +225,7 @@ export class WxPay {
    * @param tar_type 压缩类型 'gzip'
    * @returns
    */
-  public async applyTradeBill(bill_date: string, bill_type: 'ALL' | 'SUCCESS' | 'REFUND', tar_type: string = 'GZIP') {
+  public async applyTradeBill<T>(bill_date: string, bill_type: 'ALL' | 'SUCCESS' | 'REFUND', tar_type: string = 'GZIP'): Promise<T> {
     return await this.http.get('/v3/bill/tradebill', { bill_date, bill_type, tar_type });
   }
 
@@ -236,7 +236,7 @@ export class WxPay {
    * @param tar_type 压缩类型 'gzip'
    * @returns
    */
-  public async applyFundBill(bill_date: string, bill_type: 'ALL' | 'SUCCESS' | 'REFUND', tar_type: string = 'GZIP') {
+  public async applyFundBill<T>(bill_date: string, bill_type: 'ALL' | 'SUCCESS' | 'REFUND', tar_type: string = 'GZIP'): Promise<T> {
     return await this.http.get('/v3/bill/fundflowbill', { bill_date, bill_type, tar_type });
   }
 
@@ -245,7 +245,7 @@ export class WxPay {
    * @param url 账单下载地址 通过申请交易账单或申请资金账号api获取 示例： https://api.mch.weixin.qq.com/v3/billdownload/file?token=xxx
    * @returns
    */
-  public async downloadBill(url: string) {
+  public async downloadBill<T>(url: string): Promise<T> {
     const req_url = url.replace(this.baseurl, '');
     return await this.http.get(req_url);
   }
@@ -270,7 +270,7 @@ export class WxPay {
   }
 
   // 下载平台证书
-  public async downloadPlatformCert() {
+  public async downloadPlatformCert<T>(): Promise<T> {
     const url = util.format('/v3/certificates');
     const result = await this.http.get(url);
     if (result.data.length) {
@@ -279,7 +279,7 @@ export class WxPay {
           ...item,
           cert: this.decryptData(item.encrypt_certificate.nonce, item.encrypt_certificate.associated_data, item.encrypt_certificate.ciphertext),
         };
-      });
+      }) as unknown as T;
     } else {
       return result;
     }
@@ -294,10 +294,10 @@ export class WxPay {
    * @param options.body 回调体
    * @returns
    */
-  public async decryptCallbackSign(options: DecryptCallbackSignParams) {
+  public async decryptCallbackSign<T>(options: DecryptCallbackSignParams): Promise<T> {
     const { timestamp, nonce, signature, body } = options;
     const signStr = [timestamp, nonce, signature, typeof body == 'string' ? body : JSON.stringify(body)].join('\n') + '\n';
-    return crypto.createVerify('RSA-SHA256').update(signStr).verify(this.getPublicKeyContent(), signature, 'base64');
+    return crypto.createVerify('RSA-SHA256').update(signStr).verify(this.getPublicKeyContent(), signature, 'base64') as unknown as T;
   }
 
   /**
@@ -307,7 +307,7 @@ export class WxPay {
    * @param options.combine_mchid 默认采用实例化的mch_id 如果需要指定其他mch_id 可以传入
    * @returns
    */
-  public async unifiedOrderAppCombine(options: CombineUnifiedOrderParams) {
+  public async unifiedOrderAppCombine<T>(options: CombineUnifiedOrderParams): Promise<T> {
     const params = {
       combine_appid: this.config.appid,
       combine_mchid: this.config.mch_id,
@@ -315,7 +315,7 @@ export class WxPay {
     };
     const res = await this.http.post('/v3/combine-transactions/app', params);
     if (res.prepay_id) {
-      return { ...this.signPrepayId(res.prepay_id), prepay_id: res.prepay_id, partnerId: this.config.mch_id };
+      return { ...this.signPrepayId(res.prepay_id), prepay_id: res.prepay_id, partnerId: this.config.mch_id } as unknown as T;
     } else {
       return Promise.reject(res);
     }
@@ -328,7 +328,7 @@ export class WxPay {
    * @param options.combine_mchid 默认采用实例化的mch_id 如果需要指定其他mch_id 可以传入
    * @returns
    */
-  public async unifiedOrderH5Combine(options: CombineUnifiedOrderParams) {
+  public async unifiedOrderH5Combine<T>(options: CombineUnifiedOrderParams): Promise<T> {
     const params = {
       combine_appid: this.config.appid,
       combine_mchid: this.config.mch_id,
@@ -336,7 +336,7 @@ export class WxPay {
     };
     const res = await this.http.post('/v3/combine-transactions/h5', params);
     if (res.h5_url) {
-      return res.h5_url;
+      return res.h5_url as unknown as T;
     } else {
       return Promise.reject(res);
     }
@@ -349,7 +349,7 @@ export class WxPay {
    * @param options.combine_mchid 默认采用实例化的mch_id 如果需要指定其他mch_id 可以传入
    * @returns
    */
-  public async unifiedOrderJsapiCombine(options: CombineUnifiedOrderParams) {
+  public async unifiedOrderJsapiCombine<T>(options: CombineUnifiedOrderParams): Promise<T> {
     const params = {
       combine_appid: this.config.appid,
       combine_mchid: this.config.mch_id,
@@ -357,7 +357,7 @@ export class WxPay {
     };
     const res = await this.http.post('/v3/combine-transactions/jsapi', params);
     if (res.prepay_id) {
-      return { ...this.signPrepayId(res.prepay_id), prepay_id: res.prepay_id, partnerId: this.config.mch_id };
+      return { ...this.signPrepayId(res.prepay_id), prepay_id: res.prepay_id, partnerId: this.config.mch_id } as unknown as T;
     } else {
       return Promise.reject(res);
     }
@@ -370,7 +370,7 @@ export class WxPay {
    * @param options.combine_mchid 默认采用实例化的mch_id 如果需要指定其他mch_id 可以传入
    * @returns
    */
-  public async unifiedOrderNativeCombine(options: CombineUnifiedOrderParams) {
+  public async unifiedOrderNativeCombine<T>(options: CombineUnifiedOrderParams): Promise<T> {
     const params = {
       combine_appid: this.config.appid,
       combine_mchid: this.config.mch_id,
@@ -378,7 +378,7 @@ export class WxPay {
     };
     const res = await this.http.post('/v3/combine-transactions/native', params);
     if (res.code_url) {
-      return res.code_url;
+      return res.code_url as unknown as T;
     } else {
       return Promise.reject(res);
     }
@@ -389,7 +389,7 @@ export class WxPay {
    * @param combine_out_trade_no 合单商户订单号
    * @returns
    */
-  public async queryCombineOrder(combine_out_trade_no: string) {
+  public async queryCombineOrder<T>(combine_out_trade_no: string): Promise<T> {
     const url = util.format('/v3/combine-transactions/out-trade-no/%s', combine_out_trade_no);
     return await this.http.get(url);
   }
@@ -400,7 +400,7 @@ export class WxPay {
    * @param options.combine_appid 默认采用实例化的appid 如果需要指定其他appid 可以传入
    * @returns
    */
-  public async closeCombineOrder(options: CloseCombineOrderParams) {
+  public async closeCombineOrder<T>(options: CloseCombineOrderParams): Promise<T> {
     const { combine_out_trade_no, ...params } = options;
     const url = util.format('/v3/combine-transactions/out-trade-no/%s/close', combine_out_trade_no);
     return await this.http.post(url, { combine_appid: this.config.appid, ...params });
@@ -411,7 +411,7 @@ export class WxPay {
    * @param options 退款申请参数 详见文档 https://pay.weixin.qq.com/doc/v3/merchant/4012577452
    * @returns
    */
-  public async refundCombineOrder(options: RefundCombineOrderParams) {
+  public async refundCombineOrder<T>(options: RefundCombineOrderParams): Promise<T> {
     return await this.http.post('/v3/refund/domestic/refunds', options);
   }
 
@@ -420,7 +420,7 @@ export class WxPay {
    * @param out_refund_no 【商户退款单号】 商户申请退款时传入的商户系统内部退款单号。
    * @returns
    */
-  public async queryCombineRefund(out_refund_no: string) {
+  public async queryCombineRefund<T>(out_refund_no: string): Promise<T> {
     return await this.http.get(util.format('/v3/refund/domestic/refunds/%s', out_refund_no));
   }
 
@@ -429,7 +429,7 @@ export class WxPay {
    * @param options 异常退款参数 详见文档 https://pay.weixin.qq.com/doc/v3/merchant/4013420988
    * @returns
    */
-  public async exceptionCombineRefund(options: ExceptionRefundParams) {
+  public async exceptionCombineRefund<T>(options: ExceptionRefundParams): Promise<T> {
     const { refund_id, ...params } = options;
     const url = util.format('/v3/refund/domestic/refunds/%s/apply-abnormal-refund', refund_id);
     return await this.http.post(url, params);

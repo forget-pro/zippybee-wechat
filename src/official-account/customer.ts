@@ -8,7 +8,7 @@ import util from 'util';
  * @param params 客服参数
  * @returns
  */
-export const addCustomerServiceAccount = async (access_token: string, params: CustomerServiceAccount) => {
+export const addCustomerServiceAccount = async <T>(access_token: string, params: CustomerServiceAccount): Promise<T> => {
   const url = util.format('/customservice/kfaccount/add/access_token=%s', access_token);
   const response = await BaseHttp.post(url, params);
   return response;
@@ -21,7 +21,7 @@ export const addCustomerServiceAccount = async (access_token: string, params: Cu
  * @param content 消息内容
  * @returns
  */
-export const sendConcatMessage = async (access_token: string, messageContent: MessageContent) => {
+export const sendConcatMessage = async <T>(access_token: string, messageContent: MessageContent): Promise<T> => {
   const url = util.format('message/custom/send/%s', access_token);
   const response = await BaseHttp.post(url, messageContent);
   return response;
@@ -32,7 +32,7 @@ export const sendConcatMessage = async (access_token: string, messageContent: Me
  * @param params 客服参数
  * @returns
  */
-export const updateCustomerServiceAccount = async (access_token: string, params: CustomerServiceAccount) => {
+export const updateCustomerServiceAccount = async <T>(access_token: string, params: CustomerServiceAccount): Promise<T> => {
   const url = util.format('/customservice/kfaccount/update?access_token=%s', access_token);
   return await BaseHttp.post(url, params);
 };
@@ -42,7 +42,7 @@ export const updateCustomerServiceAccount = async (access_token: string, params:
  * @param kf_account 客服账号
  * @returns
  */
-export const deleteCustomerServiceAccount = async (access_token: string, kf_account: string) => {
+export const deleteCustomerServiceAccount = async <T>(access_token: string, kf_account: string): Promise<T> => {
   const url = util.format('/customservice/kfaccount/del?access_token=%s', access_token);
   return await BaseHttp.post(url, { kf_account });
 };
@@ -52,7 +52,7 @@ export const deleteCustomerServiceAccount = async (access_token: string, kf_acco
  * @param access_token 公众号的access_token
  * @returns
  */
-export const getCustomerServiceAccountList = async (access_token: string) => {
+export const getCustomerServiceAccountList = async <T>(access_token: string): Promise<T> => {
   const url = util.format('/cgi-bin/customservice/getkflist?access_token=%s', access_token);
   return await BaseHttp.get(url);
 };
@@ -64,7 +64,7 @@ export const getCustomerServiceAccountList = async (access_token: string) => {
  * @param headimgurl 头像url
  * @returns
  */
-export const setCustomerServiceAccountHeadimg = async (access_token: string, kf_account: string, headimgurl: string) => {
+export const setCustomerServiceAccountHeadimg = async <T>(access_token: string, kf_account: string, headimgurl: string): Promise<T> => {
   const url = util.format('/cgi-bin/customservice/kfaccount/uploadheadimg?access_token=%s', access_token);
   return await BaseHttp.post(url, {
     kf_account,
@@ -77,7 +77,7 @@ export const setCustomerServiceAccountHeadimg = async (access_token: string, kf_
  * @param access_token 公众号的access_token
  * @returns
  */
-export const getAllCustomerServiceAccount = async (access_token: string) => {
+export const getAllCustomerServiceAccount = async <T>(access_token: string): Promise<T> => {
   const url = util.format('/cgi-bin/customservice/getkflist?access_token=%s', access_token);
   return await BaseHttp.get(url);
 };
@@ -89,7 +89,7 @@ export const getAllCustomerServiceAccount = async (access_token: string) => {
  * @param command 输入状态 command Typing 或 CancelTyping
  * @returns
  */
-export const setCustomerServiceTyping = async (access_token: string, openid: string, command: 'Typing' | 'CancelTyping') => {
+export const setCustomerServiceTyping = async <T>(access_token: string, openid: string, command: 'Typing' | 'CancelTyping'): Promise<T> => {
   const url = util.format('/cgi-bin/message/custom/typing?access_token=%s', access_token);
   return await BaseHttp.post(url, {
     touser: openid,

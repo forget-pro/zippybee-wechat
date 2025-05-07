@@ -9,8 +9,8 @@ import { XMLBuilder, XMLParser } from 'fast-xml-parser';
  * 获取access_token
  * @returns
  */
-export const getAccessToken = async (appid: string, secret: string) => {
-  const response = await BaseHttp.get('/cgi-bin/token/', {
+export const getAccessToken = async <T>(appid: string, secret: string): Promise<T> => {
+  const response = await BaseHttp.get('/cgi-bin/token', {
     appid,
     secret,
     grant_type: 'client_credential',
@@ -18,7 +18,7 @@ export const getAccessToken = async (appid: string, secret: string) => {
   return {
     access_token: response.access_token,
     expires_in: response.expires_in,
-  };
+  } as unknown as T;
 };
 
 /**
@@ -27,12 +27,12 @@ export const getAccessToken = async (appid: string, secret: string) => {
  * @param cgi_path 接口路径
  * @returns
  */
-export const getQuota = async (access_token: string, cgi_path: string) => {
+export const getQuota = async <T>(access_token: string, cgi_path: string): Promise<T> => {
   const url = util.format('/cgi-bin/get_quota/access_token=%s', access_token);
   const response = await BaseHttp.post(url, {
     cgi_path,
   });
-  return response;
+  return response as T;
 };
 
 /**
@@ -41,12 +41,12 @@ export const getQuota = async (access_token: string, cgi_path: string) => {
  * @param rid 消息id
  * @returns
  */
-export const getRid = async (access_token: string, rid: string) => {
+export const getRid = async <T>(access_token: string, rid: string): Promise<T> => {
   const url = util.format('/cgi-bin/openapi/rid/get?access_token=%s', access_token);
   const response = await BaseHttp.post(url, {
     rid,
   });
-  return response;
+  return response as T;
 };
 
 /**
@@ -54,12 +54,12 @@ export const getRid = async (access_token: string, rid: string) => {
  * @param access_token 公众号的access_token
  * @returns
  */
-export const clearQuota = async (appid: string, access_token: string) => {
+export const clearQuota = async <T>(appid: string, access_token: string): Promise<T> => {
   const url = util.format('/cgi-bin/clear_quota?access_token=%s', access_token);
   const response = await BaseHttp.post(url, {
     appid,
   });
-  return response;
+  return response as T;
 };
 
 /**
@@ -67,12 +67,12 @@ export const clearQuota = async (appid: string, access_token: string) => {
  * @param access_token 公众号的access_token
  * @returns
  */
-export const resetQuota = async (appid: string, appSecret: string) => {
+export const resetQuota = async <T>(appid: string, appSecret: string): Promise<T> => {
   const response = await BaseHttp.post('/cgi-bin/clear_quota/v2', {
     appsecret: appSecret,
     appid: appid,
   });
-  return response;
+  return response as T;
 };
 
 /**
@@ -80,9 +80,9 @@ export const resetQuota = async (appid: string, appSecret: string) => {
  * @param access_token 公众号的access_token
  * @returns
  */
-export const getJsapiTicket = async (access_token: string) => {
+export const getJsapiTicket = async <T>(access_token: string): Promise<T> => {
   const url = util.format('/cgi-bin/ticket/getticket?access_token=%s&type=jsapi', access_token);
-  return await BaseHttp.get(url);
+  return (await BaseHttp.get(url)) as T;
 };
 
 /**
@@ -91,7 +91,7 @@ export const getJsapiTicket = async (access_token: string) => {
  * @param url 当前网页的URL，不包含#及其后面部分
  * @returns
  */
-export const getJsapiTicketSignature = async (jsapi_ticket: string, url: string) => {
+export const getJsapiTicketSignature = async <T>(jsapi_ticket: string, url: string): Promise<T> => {
   const timestamp = Math.floor(new Date().getTime() / 1000) + '';
   const nonce = Math.random().toString(36).substring(2, 15);
   const str = `jsapi_ticket=${jsapi_ticket}&noncestr=${nonce}&timestamp=${timestamp}&url=${url}`;
@@ -100,7 +100,7 @@ export const getJsapiTicketSignature = async (jsapi_ticket: string, url: string)
     timestamp,
     nonce,
     sign,
-  };
+  } as unknown as T;
 };
 
 /**
@@ -109,9 +109,9 @@ export const getJsapiTicketSignature = async (jsapi_ticket: string, url: string)
  * @param secret 公众号的secret
  * @returns
  */
-export const getWebAccessToken = async (appid: string, secret: string) => {
+export const getWebAccessToken = async <T>(appid: string, secret: string): Promise<T> => {
   const url = util.format('/sns/oauth2/access_token?grant_type=client_credential&appid=%s&secret=%s', appid, secret);
-  return await BaseHttp.get(url);
+  return (await BaseHttp.get(url)) as T;
 };
 
 /**
@@ -120,9 +120,9 @@ export const getWebAccessToken = async (appid: string, secret: string) => {
  * @param openid 用户的openid
  * @returns
  */
-export const getUserInfo = async (access_token: string, openid: string) => {
+export const getUserInfo = async <T>(access_token: string, openid: string): Promise<T> => {
   const url = util.format('/sns/userinfo?access_token=%s&openid=%s', access_token, openid);
-  return await BaseHttp.get(url);
+  return (await BaseHttp.get(url)) as T;
 };
 
 /**
@@ -134,13 +134,13 @@ export const getUserInfo = async (access_token: string, openid: string) => {
  * @param encrypt 微信加密字符串 xml 中 Encrypt 字段
  * @returns
  */
-export const verifyMessage = async (token: string, timestamp: string, nonce: string, encrypt?: string) => {
+export const verifyMessage = async <T>(token: string, timestamp: string, nonce: string, encrypt?: string): Promise<T> => {
   const signParams = [token, timestamp, nonce];
   if (encrypt) {
     signParams.push(encrypt);
   }
   const str = signParams.sort().join('');
-  return crypto.createHash('sha1').update(str).digest('hex');
+  return crypto.createHash('sha1').update(str).digest('hex') as unknown as T;
 };
 
 /**
@@ -151,14 +151,14 @@ export const verifyMessage = async (token: string, timestamp: string, nonce: str
  * @param encrypt 微信加密字符串 xml 中 Encrypt 字段
  * @returns
  */
-export const decryptMessage = async (aesKey: string, token: string, encrypt: string) => {
+export const decryptMessage = async <T>(aesKey: string, token: string, encrypt: string): Promise<T> => {
   const aes_key = Buffer.from(aesKey + '=', 'base64');
   const aes_iv_key = aes_key.subarray(0, 16);
   const decipher = crypto.createDecipheriv('aes-256-cbc', aes_key, aes_iv_key).setAutoPadding(false);
   const xml_text = decipher.update(encrypt, 'base64', 'utf8') + decipher.final('utf8');
   const xml = xml_text.substring(20, xml_text.lastIndexOf('>') + 1);
   const parser = new XMLParser();
-  return parser.parse(xml);
+  return parser.parse(xml) as T;
 };
 
 /**
@@ -169,7 +169,7 @@ export const decryptMessage = async (aesKey: string, token: string, encrypt: str
  * @param aesKey 公众后台填写的aesKey
  * @param xml 需要加密的xml
  */
-export const encryptMessage = async (appid: string, token: string, aesKey: string, xml: string) => {
+export const encryptMessage = async <T>(appid: string, token: string, aesKey: string, xml: string): Promise<T> => {
   const aes_key = Buffer.from(aesKey + '=', 'base64');
 
   const aes_iv_key = aes_key.subarray(0, 16);
@@ -212,7 +212,7 @@ export const encryptMessage = async (appid: string, token: string, aesKey: strin
     MsgSignature: msg_signature,
     TimeStamp: timestamp.toString(),
     Nonce: nonce.toString(),
-  });
+  }) as unknown as T;
 };
 
 //   字符补位
@@ -253,9 +253,9 @@ export const xmlToObject = (xml: string) => {
  * @returns
  */
 
-export const getQrcode = async (access_token: string, options: QrcodeOptions) => {
+export const getQrcode = async <T>(access_token: string, options: QrcodeOptions): Promise<T> => {
   const url = util.format('/cgi-bin/qrcode/create?access_token=%s', access_token);
-  return await BaseHttp.post(url, options);
+  return (await BaseHttp.post(url, options)) as T;
 };
 
 /**
@@ -265,10 +265,10 @@ export const getQrcode = async (access_token: string, options: QrcodeOptions) =>
  * @param {number} expire_seconds 过期秒数，最大值为2592000（即30天），默认为2592000
  * @returns
  */
-export const shortKey = async (access_token: string, long_data: string, expire_seconds?: number) => {
+export const shortKey = async <T>(access_token: string, long_data: string, expire_seconds?: number): Promise<T> => {
   const url = util.format('/cgi-bin/shorten/gen?access_token=%s', access_token);
-  return await BaseHttp.post(url, {
+  return (await BaseHttp.post(url, {
     long_data,
     expire_seconds,
-  });
+  })) as T;
 };
