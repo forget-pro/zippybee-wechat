@@ -22,7 +22,7 @@ export const addCustomerServiceAccount = async <T>(access_token: string, params:
  * @returns
  */
 export const sendConcatMessage = async <T>(access_token: string, messageContent: MessageContent): Promise<T> => {
-  const url = util.format('message/custom/send/%s', access_token);
+  const url = util.format('/cgi-bin/message/custom/send?access_token=%s', access_token);
   const response = await BaseHttp.post(url, messageContent);
   return response;
 };
