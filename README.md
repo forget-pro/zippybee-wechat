@@ -328,6 +328,7 @@ const postResult = await http.post('/path', { data: 'value' });
 - `deleteCustomerServiceAccount(access_token, account)` - 删除客服账号
 - `sendCustomerMessage(access_token, message)` - 发送客服消息
 - `getAllCustomerServiceAccount(access_token)` - 获取所有客服账号
+- `setCustomerServiceTyping(access_token,openid,commadn)` - 客服输入状态
 
 ### 模板消息
 

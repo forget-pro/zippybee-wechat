@@ -81,3 +81,18 @@ export const getAllCustomerServiceAccount = async (access_token: string) => {
   const url = util.format('/cgi-bin/customservice/getkflist?access_token=%s', access_token);
   return await BaseHttp.get(url);
 };
+
+/**
+ * 客服输入状态
+ * @param access_token 公众号的access_token
+ * @param openid 用户的openid
+ * @param command 输入状态 command Typing 或 CancelTyping
+ * @returns
+ */
+export const setCustomerServiceTyping = async (access_token: string, openid: string, command: 'Typing' | 'CancelTyping') => {
+  const url = util.format('/cgi-bin/message/custom/typing?access_token=%s', access_token);
+  return await BaseHttp.post(url, {
+    touser: openid,
+    command,
+  });
+};
