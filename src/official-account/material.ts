@@ -28,8 +28,15 @@ export const addMaterial = async <T>({ access_token, media, type, filename, desc
   if (typeof media === 'string') {
     // 判断media是否是http链接
     if (media.startsWith('http')) {
+      let videoDescription = description || '';
+      // 如果是永久视频素材，且没有描述，则生成随机描述
+      if (filetype == 'video' && isPermanent && !description) {
+        const randomFiveDigit = Math.floor(Math.random() * 90000) + 10000;
+        videoDescription = JSON.stringify({ title: `素材视频-${randomFiveDigit}`, introduction: `素材视频介绍${randomFiveDigit}` });
+      }
       return (await BaseHttp.getInstance().uploadMediaFromUrl(url, media, {
         headers: headers,
+        description: videoDescription,
       })) as T;
     }
     // 使用本地文件路径上传

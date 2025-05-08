@@ -1,5 +1,4 @@
 // 封装http请求
-
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse } from 'axios';
 import { MaterialUploadOptions } from '../official-account/type';
 import FormData from 'form-data';
@@ -55,6 +54,8 @@ export class Http {
 
         let formData = new FormData();
 
+        const formHeaders = formData.getHeaders ? formData.getHeaders() : {};
+
         // 处理文件输入 - 使用更简洁的方式判断类型
         const appendFile = () => {
           // 获取默认文件名
@@ -94,10 +95,6 @@ export class Http {
         if (description) {
           formData.append('description', description);
         }
-
-        // 获取表单头信息
-        const formHeaders = formData.getHeaders ? formData.getHeaders() : {};
-
         formData.pipe(
           concat({ encoding: 'buffer' }, async (data) => {
             this.instance
@@ -110,11 +107,7 @@ export class Http {
                 maxContentLength: Infinity,
               })
               .then((response) => {
-                if (response.status >= 200 && response.status < 300) {
-                  resolve(response.data);
-                } else {
-                  reject(new Error(`上传失败，状态码: ${response.status}`));
-                }
+                resolve(response);
               })
               .catch((error) => {
                 console.error('请求错误:', error.message || error);

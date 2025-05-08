@@ -116,3 +116,36 @@ export function getSourceFileType(file: string | File): string {
 
   return getFileType(mimeType);
 }
+
+/**
+ * 获取 URL 中的所有参数
+ * @param {string} link 需要解析的 URL
+ * @returns {Object} 包含所有参数的对象，如果没有参数则返回空对象
+ */
+export function getAllURLParameters(link: string): any {
+  const paramsObj: Record<string, string> = {};
+
+  try {
+    // 如果没有协议前缀，默认加上 `http://`
+    const url = link.startsWith('http://') || link.startsWith('https://') ? link : `http://${link}`;
+
+    // 提取 `?` 和 `#` 后的参数部分
+    const queryString = url.split('?')[1]?.split('#')[0] || ''; // 获取 `?` 后的部分
+    const hashString = url.split('#')[1]?.split('?')[1] || ''; // 获取 `#` 后 `?` 后的部分
+
+    // 合并 `queryString` 和 `hashString`
+    const fullString = `${queryString}&${hashString}`.replace(/^&|&$/g, ''); // 去除多余的 `&`
+
+    // 解析参数
+    fullString.split('&').forEach((param) => {
+      const [key, value] = param.split('=');
+      if (key) {
+        paramsObj[key] = decodeURIComponent(value || '');
+      }
+    });
+  } catch (e) {
+    console.error('Invalid URL:', e);
+  }
+
+  return paramsObj;
+}
