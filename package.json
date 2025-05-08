@@ -1,6 +1,6 @@
 {
   "name": "@zippybee/wechat-kit",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Zippy WeChat utilities",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
