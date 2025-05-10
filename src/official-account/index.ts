@@ -7,6 +7,9 @@ export * from './base.api';
 // Export menu
 export * from './menu';
 
+// Export Message
+export * from './message';
+
 // Export customer
 export * from './customer';
 
