@@ -114,3 +114,15 @@ export interface SendSubscribeMessageOptions {
     pagepath: string;
   };
 }
+
+export interface TemplateMessageOptions {
+  touser: string;
+  template_id: string;
+  url?: string;
+  miniprogram?: {
+    appid: string;
+    pagepath: string;
+  };
+  data: Record<string, any>;
+  client_msg_id?: string;
+}

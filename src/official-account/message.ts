@@ -1,6 +1,6 @@
-// 消息模板
+// 订阅模板
 import { BaseHttp } from './base.http';
-import { SendSubscribeMessageOptions } from './type';
+import { SendSubscribeMessageOptions, TemplateMessageOptions } from './type';
 import util from 'util';
 
 /**
@@ -78,7 +78,7 @@ export async function getPubTemplateTitles<T>(accessToken: string, ids: string, 
  * @param {string} accessToken 授权access_token
  * @returns {Promise<T>} 返回结果
  */
-export async function getTemplateList<T>(accessToken: string): Promise<T> {
+export async function getPrivatelyTemplateList<T>(accessToken: string): Promise<T> {
   const url = util.format('/wxaapi/newtmpl/gettemplate?access_token=%s', accessToken);
   return await BaseHttp.get(url);
 }
@@ -109,4 +109,79 @@ export async function getInterceptedTemplateMessage<T>(accessToken: string, tmpl
     largest_id,
     limit,
   });
+}
+
+// 模板消息
+
+/**
+ * 设置所属行业
+ * @param {string} accessToken 授权access_token
+ * @param {string} industryId1 公众号模板消息所属行业编号
+ * @param {string} industryId2 公众号模板消息所属行业编号
+ * @returns {Promise<T>} 返回结果
+ */
+export async function setIndustry<T>(accessToken: string, industryId1: string, industryId2: string): Promise<T> {
+  const url = util.format('/cgi-bin/template/api_set_industry?access_token=%s', accessToken);
+  return await BaseHttp.post(url, {
+    industry_id1: industryId1,
+    industry_id2: industryId2,
+  });
+}
+
+/**
+ * 获取设置的行业信息
+ * @param {string} accessToken 授权access_token
+ * @returns {Promise<T>} 返回结果
+ */
+export async function getIndustry<T>(accessToken: string): Promise<T> {
+  const url = util.format('/cgi-bin/template/get_industry?access_token=%s', accessToken);
+  return await BaseHttp.get(url);
+}
+/**
+ * 获得模板ID
+ * @param {string} accessToken 授权access_token
+ * @param {string} template_id_short 模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式,对于类目模板，为纯数字ID
+ * @param {string} keyword_name_list 选用的类目模板的关键词,按顺序传入,如果为空，或者关键词不在模板库中，会返回40246错误码
+ * @returns {Promise<T>} 返回结果
+ */
+export async function getTemplateId<T>(accessToken: string, template_id_short: string, keyword_name_list: string[]): Promise<T> {
+  const url = util.format('/cgi-bin/template/api_add_template?access_token=%s', accessToken);
+  return await BaseHttp.post(url, {
+    template_id_short,
+    keyword_name_list,
+  });
+}
+
+/**
+ * 获取模板列表
+ * @param {string} accessToken 授权access_token
+ * @returns {Promise<T>} 返回结果
+ */
+export async function getTemplateList<T>(accessToken: string): Promise<T> {
+  const url = util.format('/cgi-bin/template/get_all_private_template?access_token=%s', accessToken);
+  return await BaseHttp.get(url);
+}
+
+/**
+ * 删除模板（模板消息）
+ * @param {string} accessToken 授权access_token
+ * @param {string} templateId 模板ID
+ * @returns {Promise<T>} 返回结果
+ */
+export async function deleteTemplate<T>(accessToken: string, templateId: string): Promise<T> {
+  const url = util.format('/cgi-bin/template/del_private_template?access_token=%s', accessToken);
+  return await BaseHttp.post(url, {
+    template_id: templateId,
+  });
+}
+
+/**
+ * 发送模板消息
+ * @param {string} accessToken 授权access_token
+ * @param {TemplateMessageOptions} options 发送模板消息的参数
+ * @returns {Promise<T>} 返回结果
+ */
+export async function sendTemplateMessage<T>(accessToken: string, options: TemplateMessageOptions): Promise<T> {
+  const url = util.format('/cgi-bin/message/template/send?access_token=%s', accessToken);
+  return await BaseHttp.post(url, options);
 }

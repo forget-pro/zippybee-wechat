@@ -330,17 +330,26 @@ const postResult = await http.post('/path', { data: 'value' });
 - `getAllCustomerServiceAccount(access_token)` - 获取所有客服账号
 - `setCustomerServiceTyping(access_token,openid,commadn)` - 客服输入状态
 
-### 模板消息
+### 模板消息&订阅消息
+
+####  订阅消息
 
 - `addTemplate(access_token, tid,kidList,sceneDesc)` - 从公共模板库中选用模板，到私有模板库中
 - `delTemplate(access_token, priTmplId)` - 删除模板
 - `getCategory(access_token)` - 获取公众号类目
 - `getPubTemplateKeyWords(access_token,tid)` - 获取公共模板标题下的关键词列表
 - `getPubTemplateTitles(access_token,ids,start,limit)` - 获取类目下的公共模板
-- `getTemplateList(access_token)` - 获取私有模板列表
+- `getPrivatelyTemplateList(access_token)` - 获取私有模板列表
 - `sendSubscribeMessage(access_token,SendSubscribeMessageOptions)` - 发送订阅通知
 - `getInterceptedTemplateMessage(access_token,tmpl_msg_id,largest_id,limit)` - 查询拦截的模板消息
 
+#### 模板消息
+- `setIndustry(accessToken,industryId1,industryId2)` - 设置所属行业
+- `getIndustry(accessToken)` - 获取设置的行业信息
+- `getTemplateId(accessToken,template_id_short,keyword_name_list)` - 获得模板ID
+- `getTemplateList(accessToken)` - 获取模板列表
+- `deleteTemplate(accessToken,templateId)` - 删除模板（模板消息）
+- `sendTemplateMessage(accessToken,TemplateMessageOptions)` - 发送模板消息
 ### 消息加解密
 
 - `verifyMessage(token, timestamp, nonce, encrypt)` - 验证消息签名
