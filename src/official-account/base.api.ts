@@ -116,11 +116,12 @@ export const getWebAccessToken = async <T>(appid: string, secret: string): Promi
 
 /**
  * 获取公众号用户信息
- * @param access_token 公众号的access_token
+ * @param access_token 公众号的授权网页access_token
  * @param openid 用户的openid
+ * @see https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#1
  * @returns
  */
-export const getUserInfo = async <T>(access_token: string, openid: string): Promise<T> => {
+export const getWebUserInfo = async <T>(access_token: string, openid: string): Promise<T> => {
   const url = util.format('/sns/userinfo?access_token=%s&openid=%s', access_token, openid);
   return (await BaseHttp.get(url)) as T;
 };

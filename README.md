@@ -303,7 +303,7 @@ const postResult = await http.post('/path', { data: 'value' });
 - `resetQuota(appid, appSecret)` - 重置 API 调用次数
 - `getJsapiTicket(access_token)` - 获取 JS API Ticket
 - `getJsapiTicketSignature(jsapi_ticket, url)` - 生成 JS API 签名
-- `getUserInfo(access_token, openid)` - 获取用户信息
+- `getWebUserInfo(access_token, openid)` - 获取用户信息
 - `getQrcode(access_token,QrcodeOptions)` - 新增生成带参数的二维码
 - `shortKey(access_token,long_data，expire_seconds)` - 短 key 托管
 
@@ -332,7 +332,7 @@ const postResult = await http.post('/path', { data: 'value' });
 
 ### 模板消息&订阅消息
 
-####  订阅消息
+#### 订阅消息
 
 - `addTemplate(access_token, tid,kidList,sceneDesc)` - 从公共模板库中选用模板，到私有模板库中
 - `delTemplate(access_token, priTmplId)` - 删除模板
@@ -344,12 +344,14 @@ const postResult = await http.post('/path', { data: 'value' });
 - `getInterceptedTemplateMessage(access_token,tmpl_msg_id,largest_id,limit)` - 查询拦截的模板消息
 
 #### 模板消息
+
 - `setIndustry(accessToken,industryId1,industryId2)` - 设置所属行业
 - `getIndustry(accessToken)` - 获取设置的行业信息
-- `getTemplateId(accessToken,template_id_short,keyword_name_list)` - 获得模板ID
+- `getTemplateId(accessToken,template_id_short,keyword_name_list)` - 获得模板 ID
 - `getTemplateList(accessToken)` - 获取模板列表
 - `deleteTemplate(accessToken,templateId)` - 删除模板（模板消息）
 - `sendTemplateMessage(accessToken,TemplateMessageOptions)` - 发送模板消息
+
 ### 消息加解密
 
 - `verifyMessage(token, timestamp, nonce, encrypt)` - 验证消息签名
@@ -394,13 +396,22 @@ const postResult = await http.post('/path', { data: 'value' });
   - `applyFundBill(bill_date, bill_type, tar_type)` - 申请资金账单
   - `downloadBill(url)` - 下载账单
 
-### HTTP 模块
+### 用户模块
 
-- `new Http(baseURL, preRequestHandler)` - 创建 HTTP 实例
-- `http.get(url, params, config)` - 发起 GET 请求
-- `http.post(url, data, config)` - 发起 POST 请求
-- `http.put(url, data, config)` - 发起 PUT 请求
-- `http.delete(url, config)` - 发起 DELETE 请求
+- `createUserTag(accessToken, tagName)` - 创建标签
+- `getUserTags(accessToken)` - 获取公众号已创建的标签
+- `updateUserTag(accessToken, tagId, tagName)` - 编辑标签
+- `deleteUserTag(accessToken, tagId)` - 删除标签
+- `getTagUserList(accessToken, tagId, nextOpenId)` - 获取标签下粉丝列表
+- `batchTagging(accessToken, tagId, openIds, return_fail_openid)` - 批量为用户打标签
+- `batchUntagging(accessToken, tagId, openIds, return_fail_openid)` - 批量为用户取消标签
+- `getUserTagList(accessToken, openId)` - 获取用户身上的标签列表
+- `setUserRemark(accessToken, openId, remark)` - 设置用户备注名
+- `getUserInfo(accessToken, openId, lang)` - 获取用户基本信息（UnionID 机制）
+- `getUserList(accessToken, nextOpenId)` - 获取用户列表
+- `getBlackList(accessToken, beginOpenId)` - 获取黑名单列表
+- `batchBlackList(accessToken, openIds)` - 拉黑用户
+- `batchUnBlackList(accessToken, openIds)` - 取消拉黑用户
 
 ## 注意事项
 
