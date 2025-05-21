@@ -109,7 +109,7 @@ export const batchUntagging = async <T>(accessToken: string, tagId: number, open
   const response = await BaseHttp.post(url, {
     tagid: tagId,
     openid_list: openIds,
-    return_fail_openidL: return_fail_openid || false,
+    return_fail_openid: return_fail_openid || false,
   });
   return response;
 };

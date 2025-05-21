@@ -10,7 +10,7 @@ import util from 'util';
  * @returns
  */
 export const createMenu = async <T>(access_token: string, menu: OfficialAccountMenu): Promise<T> => {
-  const url = util.format('/cgi-bin/menu/get/access_token=%s', access_token);
+  const url = util.format('/cgi-bin/menu/create?access_token=%s', access_token);
   const response = await BaseHttp.post(url, {
     menu,
   });
@@ -19,7 +19,7 @@ export const createMenu = async <T>(access_token: string, menu: OfficialAccountM
 
 /**查询菜单按钮 */
 export const getMenu = async <T>(access_token: string): Promise<T> => {
-  const url = util.format('/cgi-bin/menu/get/access_token=%s', access_token);
+  const url = util.format('/cgi-bin/get_current_selfmenu_info?access_token=%s', access_token);
   const response = await BaseHttp.get(url);
   return response;
 };
@@ -30,7 +30,7 @@ export const getMenu = async <T>(access_token: string): Promise<T> => {
  * @returns
  */
 export const deleteMenu = async <T>(access_token: string): Promise<T> => {
-  const url = util.format('/cgi-bin/menu/get/access_token=%s', access_token);
+  const url = util.format('/cgi-bin/menu/delete?access_token=%s', access_token);
   const response = await BaseHttp.get(url);
   return response;
 };
