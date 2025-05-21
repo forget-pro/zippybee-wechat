@@ -11,9 +11,7 @@ import util from 'util';
  */
 export const createMenu = async <T>(access_token: string, menu: OfficialAccountMenu): Promise<T> => {
   const url = util.format('/cgi-bin/menu/create?access_token=%s', access_token);
-  const response = await BaseHttp.post(url, {
-    menu,
-  });
+  const response = await BaseHttp.post(url, menu);
   return response;
 };
 
