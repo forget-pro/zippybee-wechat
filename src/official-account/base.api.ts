@@ -91,7 +91,7 @@ export const getJsapiTicket = async <T>(access_token: string): Promise<T> => {
  * @param url 当前网页的URL，不包含#及其后面部分
  * @returns
  */
-export const getJsapiTicketSignature = async <T>(jsapi_ticket: string, url: string): Promise<T> => {
+export const getJsapiTicketSignature = (jsapi_ticket: string, url: string): { timestamp: string; nonce: string; sign: string } => {
   const timestamp = Math.floor(new Date().getTime() / 1000) + '';
   const nonce = Math.random().toString(36).substring(2, 15);
   const str = `jsapi_ticket=${jsapi_ticket}&noncestr=${nonce}&timestamp=${timestamp}&url=${url}`;
@@ -100,7 +100,7 @@ export const getJsapiTicketSignature = async <T>(jsapi_ticket: string, url: stri
     timestamp,
     nonce,
     sign,
-  } as unknown as T;
+  };
 };
 
 /**
