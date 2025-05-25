@@ -359,6 +359,7 @@ const postResult = await http.post('/path', { data: 'value' });
 - `encryptMessage(appid, token, aesKey, xml)` - 加密消息
 - `objectToXml(obj)` - 对象转 XML
 - `xmlToObject(xml)` - XML 转对象
+- `validateXml(xml)` - 验证是否是 xml 字符串
 
 ### 微信支付 V3 API
 

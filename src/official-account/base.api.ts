@@ -3,7 +3,7 @@ import { BaseHttp } from './base.http';
 import util from 'util';
 import crypto from 'crypto';
 import { QrcodeOptions } from './type';
-import { XMLBuilder, XMLParser } from 'fast-xml-parser';
+import { XMLBuilder, XMLParser, XMLValidator } from 'fast-xml-parser';
 
 /**
  * 获取access_token
@@ -245,6 +245,15 @@ export const objectToXml = (obj: any) => {
 export const xmlToObject = (xml: string) => {
   const parser = new XMLParser();
   return parser.parse(xml);
+};
+
+/**
+ * 验证xml格式
+ * @param xml xml字符串
+ * @returns
+ */
+export const validateXml = (xml: string): boolean => {
+  return XMLValidator.validate(xml) === true;
 };
 
 /**
