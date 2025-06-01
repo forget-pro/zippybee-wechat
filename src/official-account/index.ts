@@ -16,5 +16,8 @@ export * from './customer';
 // Export tool
 export * from './tool';
 
+// 导出user模块
+export * from './user';
+
 // Export fast-xml-parser
 // export * from 'fast-xml-parser';
