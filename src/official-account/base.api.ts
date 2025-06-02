@@ -3,7 +3,7 @@ import { BaseHttp } from './base.http';
 import util from 'util';
 import crypto from 'crypto';
 import { QrcodeOptions } from './type';
-import { XMLBuilder, XMLParser, XMLValidator } from 'fast-xml-parser';
+import { XMLBuilder, XMLParser, XMLValidator, X2jOptions, validationOptions, XmlBuilderOptions } from 'fast-xml-parser';
 
 /**
  * 获取access_token
@@ -232,8 +232,8 @@ export const PKCS7Encode = (text: Buffer) => {
  * @param obj 对象
  * @returns
  */
-export const objectToXml = (obj: any) => {
-  const builder = new XMLBuilder({ format: true });
+export const objectToXml = (obj: any, option: XmlBuilderOptions) => {
+  const builder = new XMLBuilder(option || { format: true });
   return builder.build(obj);
 };
 
@@ -242,8 +242,8 @@ export const objectToXml = (obj: any) => {
  * @param xml xml
  * @returns
  */
-export const xmlToObject = (xml: string) => {
-  const parser = new XMLParser();
+export const xmlToObject = (xml: string, option?: X2jOptions) => {
+  const parser = new XMLParser(option);
   return parser.parse(xml);
 };
 
@@ -252,8 +252,8 @@ export const xmlToObject = (xml: string) => {
  * @param xml xml字符串
  * @returns
  */
-export const validateXml = (xml: string): boolean => {
-  return XMLValidator.validate(xml) === true;
+export const validateXml = (xml: string, option?: validationOptions): boolean => {
+  return XMLValidator.validate(xml, option) === true;
 };
 
 /**
