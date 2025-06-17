@@ -18,7 +18,7 @@
     "wechat",
     "utility"
   ],
-  "author": "dr-forget <fhs8825@gmail.com>",
+  "author": "forget-pro <fhs8825@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.3",
@@ -53,9 +53,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dr-forget/zippy-wechat-kit"
+    "url": "git+https://github.com/forget-pro/zippybee-wechat"
   },
   "bugs": {
-    "url": "https://github.com/dr-forget/zippy-wechat-kit/issues"
+    "url": "https://github.com/forget-pro/zippybee-wechat/issues"
   }
 }
