@@ -104,6 +104,20 @@ export const getJsapiTicketSignature = (jsapi_ticket: string, url: string): { ti
 };
 
 /**
+ * 换取用户授权凭证
+ * @param appid 公众号的appid
+ * @param secret 公众号的secret
+ * @param code 填写第一步获取的code参数
+ * @see https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#1
+ * @returns
+ */
+export const getUserAccessToken = async <T>(appid: string, secret: string, code: string): Promise<T> => {
+  const url = util.format('/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code', appid, secret, code);
+  return (await BaseHttp.get(url)) as T;
+};
+
+
+/**
  * 公众号网页access_token
  * @param appid 公众号的appid
  * @param secret 公众号的secret

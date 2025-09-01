@@ -302,7 +302,8 @@ const postResult = await http.post('/path', { data: 'value' });
 - `clearQuota(appid, access_token)` - 清空 API 配额
 - `resetQuota(appid, appSecret)` - 重置 API 调用次数
 - `getJsapiTicket(access_token)` - 获取 JS API Ticket
-- `getJsapiTicketSignature(jsapi_ticket, url)` - 生成 JS API 签名
+- `getUserAccessToken(appid,secret, code)` - 换取用户授权凭证
+- `(jsapi_ticket, url)` - 生成 JS API 签名
 - `getWebUserInfo(access_token, openid)` - 获取用户信息
 - `getQrcode(access_token,QrcodeOptions)` - 新增生成带参数的二维码
 - `shortKey(access_token,long_data，expire_seconds)` - 短 key 托管
