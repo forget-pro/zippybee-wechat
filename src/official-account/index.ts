@@ -19,5 +19,8 @@ export * from './tool';
 // 导出user模块
 export * from './user';
 
+// 导出声明类型
+export * from "./type"
+
 // Export fast-xml-parser
 // export * from 'fast-xml-parser';
